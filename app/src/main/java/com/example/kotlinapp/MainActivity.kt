@@ -9,76 +9,41 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private var number1: Int = 0
-    private var number2: Double = 0.01
+    private var number1: Int = 2
+    private var number2: Int = 5
 
-    private var text: String = "abc"
+    //можно вызывать результат метода и вставлять его сразу
+    private var text: String = "В магазине осталось:  ${getNumber()} яблок"
 
-    //обозначили переменную
+
+
+    //обозначили переменную ХМЛ
     private var helloTextView: TextView? = null
 
-
-    //переменные для счетчика
-    private var counter: Int = 0
-
-    private var start: Boolean = false
-
-    //переменная лайаута
-    private var cLayout: ConstraintLayout? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         //связали переменную c айди
         helloTextView = findViewById(R.id.helloTextView)
-        cLayout = findViewById(R.id.cLayout)
 
 
-        //указываем что не нулл и приводим к строке переменную
-        helloTextView?.setText(number1.toString())
-
-
-        //запускаем новый поток
-        Thread {
-            start = true
-            //бесконечный цикл только при методе онКриет
-            while (start) {
-                //запускаем счетчик с 1 секундой
-                Thread.sleep(1000)
-
-
-                    //позваляем менять интерфейс в не основном потоке
-                    runOnUiThread {
-
-                        //проверяем на счет и запускаем когда счет дойдёт до 5 и меняем цвет
-                        if (counter == 5) cLayout?.setBackgroundColor(Color.BLUE)
-
-                            //указываем что не нулл и приводим к строке переменную
-                            helloTextView?.setText(counter.toString())
-
-                            //на увеличение на 1
-                            counter++
-
-                    }
-
-                }
-
-                //иначе поток не запустится
-            }.start()
+        //устанавливаем текст получая результат из метода и приводим к стринг
+//        helloTextView?.setText(getNumber().toString())
+        //устанавливаем текст
+        helloTextView?.setText(text)
 
 
     }
 
 
-    //когда приложение закрывается останавливаем поток с циклом
-    override fun onDestroy() {
-        super.onDestroy()
-        //останавливаем счетчик
-        start = false
+    //метод расчета и возвращаем результат в ИНт
+    private fun getNumber():Int {
 
+        return number1 + number2
 
     }
+
 }
