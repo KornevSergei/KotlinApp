@@ -1,34 +1,43 @@
 package com.example.kotlinapp
 
-import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 
 
 class MainActivity : AppCompatActivity() {
+
+    //оздали лист
+    var listView: ListView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //связали
+        listView = findViewById(R.id.listView)
+
+        //массив для элеентов списка
+        var nameList = ArrayList<String>()
+        //доюавляем элементы
+        nameList.add("Иван")
+        nameList.add("Ирина")
+        nameList.add("Сергей")
+        nameList.add("Степан")
+        nameList.add("Евгений")
+
+        //оздаём адаптер для листВью , присвоили шаблон для отоброжения и заполнили его элементами массива
+        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, nameList)
+        //присвоили адаптер
+        listView?.adapter = adapter
+
+
+
 
     }
-
-
-    //клик на кнопку
-    fun startActivity(view: View) {
-
-        //указываем из какого активити и куда и делаем переход // так же предаем информацию в новый интент ключ-значение
-        val intent = Intent(this, SecondActivity::class.java).apply {
-            putExtra("Hello!","Привет с основного активити )")
-        }
-        startActivity(intent)
-    }
-
 }
